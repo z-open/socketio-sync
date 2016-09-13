@@ -1,0 +1,29 @@
+{
+  "name": "socketio-sync",
+  "version": "0.0.1",
+  "description": "Data synchronization support for socketio-auth",
+  "main": "lib/server-sync.js",
+  "keywords": [
+    "socket",
+    "socket.io",
+    "jwt"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/z-open/socketio-sync.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^5.0.0",
+    "xtend": "~2.1.2",
+    "promise": "^7.1.1",
+    "socketio-auth": "git://github.com/z-open/socketio-auth#1.1.3",
+    "uuid": "^2.0.1"
+  },
+  "devDependencies": {
+
+  }
+}
