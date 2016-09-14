@@ -18,8 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.14.0",
-    "jasmine-node": "^1.14.5",
+    "jasmine-node": "^2.0.0",
     "jsonwebtoken": "^5.0.0",
+    "lodash": "^4.15.0",
     "promise": "^7.1.1",
     "request": "^2.74.0",
     "socketio-auth": "git://github.com/z-open/socketio-auth#1.1.3",
