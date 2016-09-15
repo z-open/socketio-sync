@@ -1,7 +1,5 @@
-var request = require("request");
 var sync = require("../lib/server-sync");
 var Promise = require('promise');
-var base_url = "http://localhost:3000/";
 var socket;
 var handler;
 var userId;
@@ -317,6 +315,8 @@ describe("Sync", function () {
 
 
         });
+
+
     });
 
 
