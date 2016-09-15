@@ -2,6 +2,8 @@ var routes = require("../lib/routes");
 var api;
 var apiRoutes;
 var sync;
+const currentVersion = '1.0';
+
 describe("routes", function () {
     beforeEach(function () {
         apiRoutes = {};
@@ -13,27 +15,51 @@ describe("routes", function () {
 
         sync = {
             subscribe: function () { },
-            unsubscribe: function () { }
+            unsubscribe: function () { },
+            getVersion: function () {
+                return currentVersion;
+            }
         }
 
         routes(api, sync);
 
+
+
         spyOn(sync, 'subscribe');
         spyOn(sync, 'unsubscribe');
-
     });
+
+    it("should not allow subscribe with an incompatible client sync version", function () {
+        try {
+            callApi(
+                'sync.subscribe',
+                { version: '0.1', id: 'sub#1', publication: 'magazine', params: { type: 'fiction' } }
+            );
+        } catch (err) {
+            expect(err.message).toEqual('CLIENT_SYNC_VERSION_INCOMPATIBLE');
+        }
+    });
+
+    it("should not allow unsubscribe with an incompatible client sync version", function () {
+        try {
+            callApi('sync.subscribe', { version: currentVersion, id: 'sub#1' });
+        } catch (err) {
+            expect(err.message).toEqual('CLIENT_SYNC_VERSION_INCOMPATIBLE');
+        }
+    });
+
 
     it("should register subscribe route", function () {
         callApi(
             'sync.subscribe',
-            { id: 'sub#1', publication: 'magazine', params: { type: 'fiction' } }
+            { version: currentVersion, id: 'sub#1', publication: 'magazine', params: { type: 'fiction' } }
         );
         expect(sync.subscribe).toHaveBeenCalled();
         // need to check params
     });
 
     it("should registerunsubscribe", function () {
-        callApi('sync.subscribe', 'sub#1');
+        callApi('sync.subscribe', { version: currentVersion, id: 'sub#1' });
         expect(sync.subscribe).toHaveBeenCalled();
     });
 

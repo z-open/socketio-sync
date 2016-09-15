@@ -6,18 +6,19 @@ var userId;
 var subId;
 var deferredEmit, deferredFetch;
 
-
-var magazine1 = { id: '1', name: 'iron man', revision: 0, type: 'fiction' };
-var magazine1b = { id: '1', name: 'IRONMAN', revision: 1, type: 'fiction' };
-var magazine2 = { id: '2', name: 'spider man', revision: 7, type: 'fiction' };
-var magazine2Deleted = { id: '2', name: 'spider man', revision: 8, type: 'fiction' };
-var magazine3 = { id: '3', name: 'Entrepreneur', revision: 9, type: 'business' };
-var magazine3b = { id: '3', name: 'The Entrepreneur', revision: 10, type: 'business' };
-var magazine3Deleted = { id: '3', name: 'Entrepreneur', revision: 11, type: 'business' };
-var magazine4 = { id: '4', name: 'Heroes', revision: 1, type: 'fiction' };
+var magazine1, magazine1b, magazine2, magazine2Deleted, magazine3, magazine3b, magazine3Deleted, magazine4;
 
 describe("Sync", function () {
     beforeEach(function () {
+
+        magazine1 = { id: '1', name: 'iron man', revision: 0, type: 'fiction' };
+        magazine1b = { id: '1', name: 'IRONMAN', revision: 1, type: 'fiction' };
+        magazine2 = { id: '2', name: 'spider man', revision: 7, type: 'fiction' };
+        magazine2Deleted = { id: '2', name: 'spider man', revision: 8, type: 'fiction' };
+        magazine3 = { id: '3', name: 'Entrepreneur', revision: 9, type: 'business' };
+        magazine3b = { id: '3', name: 'The Entrepreneur', revision: 10, type: 'business' };
+        magazine3Deleted = { id: '3', name: 'Entrepreneur', revision: 11, type: 'business' };
+        magazine4 = { id: '4', name: 'Heroes', revision: 1, type: 'fiction' };
 
         sync.setDebug(true);
 
