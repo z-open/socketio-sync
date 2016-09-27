@@ -91,6 +91,11 @@ sync.setDebug
 
 by default, the backend does not show the log
 
+### Collaborate
+
+to run the test: npm test
+
+
 ###To Implement
 
 object property change notification.
