@@ -71,22 +71,22 @@ describe("Sync", function () {
     });
 
     it("should subscribe and receive the subscription id", function () {
-        subId = sync.subscribe(handler, null, 'magazines', null);
+        subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
         expect(sync.countActiveSubscriptions()).toBe(1);
         expect(subId).toBeDefined();
     });
 
     it("should create multiple subscriptions attached to same socket", function () {
-        subId = sync.subscribe(handler, null, 'magazines', null);
-        var subId2 = sync.subscribe(handler, null, 'magazines', null);
+        subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
+        var subId2 = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
         expect(sync.countActiveSubscriptions()).toBe(2);
         expect(subId).not.toBe(subId2);
         expect(handler.socket.subscriptions.length).toBe(2);
     });
 
     it("should create multiple subscriptions attached to different socket", function () {
-        subId = sync.subscribe(handler, null, 'magazines', null);
-        var subId2 = sync.subscribe(handler2, null, 'magazines', null);
+        subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
+        var subId2 = sync.subscribe(handler2.user, handler2.socket, null, 'magazines', null);
         expect(sync.countActiveSubscriptions()).toBe(2);
         expect(subId).not.toBe(subId2);
         expect(handler.socket.subscriptions.length).toBe(1);
@@ -94,8 +94,8 @@ describe("Sync", function () {
     });
 
     it("should clear all active subscriptions from memory", function () {
-        subId = sync.subscribe(handler, null, 'magazines', null);
-        var subId2 = sync.subscribe(handler2, null, 'magazines', null);
+        subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
+        var subId2 = sync.subscribe(handler2.user, handler2.socket, null, 'magazines', null);
         sync.clear();
         expect(sync.countActiveSubscriptions()).toBe(0);
         expect(handler.socket.subscriptions.length).toBe(0);
@@ -105,23 +105,23 @@ describe("Sync", function () {
     it("should return an error when the publication is unknown", function () {
         var unknownPublication = 'unknownPublication';
         try {
-            sync.subscribe(handler, null, unknownPublication, null);
+            sync.subscribe(handler.user, handler.socket, null, unknownPublication, null);
         } catch (err) {
             expect(err.message).toEqual('Subscription to inexisting publication [' + unknownPublication + ']');
         }
     });
 
     it("should unsubscribe", function () {
-        subId = sync.subscribe(handler, null, 'magazines', null);
+        subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
         expect(subId).toBeDefined();
         debugger
-        sync.unsubscribe(handler.user.tenantId, handler.user.id, subId);
+        sync.unsubscribe(handler.user, subId);
         expect(sync.countActiveSubscriptions()).toBe(0);
     });
 
     describe('network loss recovery', function () {
         beforeEach(function () {
-            subId = sync.subscribe(handler, null, 'magazines', null);
+            subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
             socket.simulateDisconnect();
         });
 
@@ -138,13 +138,13 @@ describe("Sync", function () {
         });
 
         it("should reconnect to the same subscription instance when the network re-establishes quickly", function () {
-            var newSubId = sync.subscribe(handler, subId, 'magazines', null);
+            var newSubId = sync.subscribe(handler.user, handler.socket, subId, 'magazines', null);
             expect(newSubId).toBe(subId);
         });
 
         it("should reconnect to a new subscription instance when the network does NOT re-establish quickly", function () {
             jasmine.clock().tick(sync.getMaxDisconnectionTimeBeforeDroppingSubscription() * 1000 + 10);
-            var newSubId = sync.subscribe(handler, subId, 'magazines', null);
+            var newSubId = sync.subscribe(handler.user, handler.socket, subId, 'magazines', null);
             expect(newSubId).not.toBe(subId);
         });
 
@@ -153,7 +153,7 @@ describe("Sync", function () {
     describe('initialization', function () {
 
         beforeEach(function () {
-            subId = sync.subscribe(handler, null, 'magazines', null);
+            subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
         });
 
         it("should subscribe and receive subscription data", function (done) {
@@ -185,7 +185,7 @@ describe("Sync", function () {
 
     describe('without subscription params', function () {
         beforeEach(function () {
-            subId = sync.subscribe(handler, null, 'magazines', null);
+            subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', null);
         });
         it("should receive an update", function (done) {
             waitForNotification().then(function (sub1) {
@@ -238,7 +238,7 @@ describe("Sync", function () {
     describe('with subscription params', function () {
 
         beforeEach(function () {
-            subId = sync.subscribe(handler, null, 'magazines', { type: 'fiction' });
+            subId = sync.subscribe(handler.user, handler.socket, null, 'magazines', { type: 'fiction' });
         })
 
         it("should receive an update", function (done) {
