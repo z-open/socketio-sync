@@ -115,7 +115,7 @@ describe("Sync", function () {
         subId = sync.subscribe(handler, null, 'magazines', null);
         expect(subId).toBeDefined();
         debugger
-        sync.unsubscribe(userId, subId);
+        sync.unsubscribe(handler.user.tenantId, handler.user.id, subId);
         expect(sync.countActiveSubscriptions()).toBe(0);
     });
 
