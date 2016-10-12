@@ -25,7 +25,7 @@ describe("routes", function () {
 
 
 
-        spyOn(sync, 'subscribe');
+        spyOn(sync, 'subscribe').and.returnValue({ id: '#subId' });
         spyOn(sync, 'unsubscribe');
     });
 
