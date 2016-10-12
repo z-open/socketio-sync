@@ -1,6 +1,6 @@
 {
   "name": "socketio-sync",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Data synchronization support for socketio-auth",
   "main": "lib/server-sync.js",
   "keywords": [
