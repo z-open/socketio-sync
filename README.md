@@ -96,6 +96,9 @@ by default, the backend does not show the log
 to run the test: npm test
 
 
+Note: you might increase constant CURRENT_SYNC_VERSION to prevent incompatible bower client libraries to operate.
+
+
 ###To Implement
 
 object property change notification.
