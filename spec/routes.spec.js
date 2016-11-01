@@ -2,7 +2,7 @@ var routes = require("../lib/routes");
 var api;
 var apiRoutes;
 var sync;
-const currentVersion = '1.0';
+const currentVersion = '1.2';
 
 describe("routes", function () {
     beforeEach(function () {
