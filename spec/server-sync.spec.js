@@ -1,3 +1,6 @@
+const zlog = require('zlog');
+zlog.setRootLogger('NONE');
+
 var sync = require("../lib/server-sync");
 var Promise = require('promise');
 var socket;
@@ -23,8 +26,6 @@ describe("Sync", function () {
         magazine3b = { id: '3', name: 'The Entrepreneur', revision: 10, type: 'business' };
         magazine3Deleted = { id: '3', name: 'Entrepreneur', revision: 11, type: 'business' };
         magazine4 = { id: '4', name: 'Heroes', revision: 1, type: 'fiction' };
-
-        sync.setDebug(true);
 
         deferredEmit = defer();
         deferredFetch = defer();
